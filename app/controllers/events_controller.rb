@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-
+  before_action :check_if_authentificated, except: [:show, :index]
   # GET /events
   # GET /events.json
   def index
@@ -24,7 +24,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
+    @event = current_user.events.new(event_params)
 
     respond_to do |format|
       if @event.save
@@ -66,6 +66,11 @@ class EventsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
+    end
+
+    # aliens can only watching
+    def check_if_authentificated
+      render text: "Acces denied", status: 403 unless user_signed_in?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

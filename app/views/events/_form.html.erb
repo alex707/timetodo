@@ -24,6 +24,6 @@
     <%= f.file_field :event_avatar %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit if user_signed_in? %>
   </div>
 <% end %>

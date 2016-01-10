@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User email</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>User avatar</strong>
+  <%= image_tag @user.user_avatar.url(:thumb) %>
+</p>
+
+<p>
+  <strong>User events:</strong>
+  <% @user.events.each { |e| %><%= e.event_name %><br><% } %>
+</p>
+
+<%= link_to 'Back', users_path %>
